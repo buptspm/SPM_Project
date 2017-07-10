@@ -18,6 +18,7 @@
 		<script type="text/javascript" src="./dwr/util.js"></script>
 		<script type="text/javascript" src="./dwr/engine.js"></script>
 		<script type="text/javascript" src="./dwr/interface/dwrUtil.js"></script>
+		<script type="text/javascript" src="./js/md5.js"></script>
 		<script type="text/javascript">
 		function register(){
 /*			var registerUserName = document.getElementById("user");
@@ -33,7 +34,11 @@
 					//$.messager.alert("注册失败，请重新注册！");
 				}
 			}*/
-			
+
+			var registerPassWord = document.getElementById("passwd");
+			var registerPassWord2 = document.getElementById("passwd2");
+			registerPassWord.value=hex_md5(registerPassWord.value);
+			registerPassWord2.value=hex_md5(registerPassWord2.value);
             $('#registFm').form('submit',{
                 url: "${ctx}/registerAction.do",
                 success: function(result){
@@ -51,11 +56,21 @@
 			var loginPassWord = document.getElementById("p");
 // 			alert("开始调用dwr进行登录校验");
 			/* 下面一行实际上是没有意义的 */
-			dwrUtil.loginCheck(loginUserName.value,loginPassWord.value,callback);
+			
+			var hashPsw = hex_md5(loginPassWord.value);
+			
+			dwrUtil.loginCheck(loginUserName.value,hashPsw,callback);
 			function callback(result){
 				if(result == "1"){
 					//alert("登入成功！");
-					document.getElementById("loginForm").submit();
+					var form=document.getElementById("loginForm");
+					
+					var psw = document.getElementById("p");
+		
+	
+					$("#p").textbox("setValue",hex_md5(psw.value));
+					
+					form.submit();
 				}else{
 					//alert("登入s！");
 					$("#msg").html("用户名或密码错误，请重新输入！");
@@ -223,6 +238,7 @@
 								<div class="inputOuter2">
 									<input type="text" id="user" maxlength="10" name="user.userName" onBlur="registerExtenceCheck();" 
 										class="inputstyle2" />
+									
 								</div>
 
 								<br>
@@ -243,6 +259,7 @@
 								<div class="inputOuter2">
 									<input type="password" id="passwd" name="user.password" onBlur="registerPassWordCheck();" 
 										maxlength="16" class="inputstyle2" />
+									
 								</div>
 								<br>
 								<br>
