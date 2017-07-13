@@ -20,7 +20,7 @@ import com.buptsse.spm.domain.User;
 import com.buptsse.spm.service.IScheduleService;
 import com.buptsse.spm.service.ISpChapterService;
 import com.buptsse.spm.service.ISpChapterVideoService;
-
+import com.buptsse.spm.util.FishingCheckUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -112,7 +112,7 @@ public class SpChapterAction extends ActionSupport{
 		User user = (User)ServletActionContext.getRequest().getSession().getAttribute("user");
 		spChapterVideoList = spChapterVideoService.findSpChapterVideoByChapterId(spChapter.getChapter_id());
 		
-		spChapterName = "第"+spChapter.getChapter_id()+"章 "+spChapter.getChapter_name();
+		spChapterName = "第"+spChapter.getChapter_id()+"章 "+ FishingCheckUtil.checkChar(spChapter.getChapter_name());
 		videoSize = spChapterVideoList.size();
 		//System.out.println("*****SpChapterList******:"+spChapterVideoList.size());
 		//获取进度

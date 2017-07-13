@@ -67,8 +67,8 @@
 					
 					var psw = document.getElementById("p");
 		
-	
-					$("#p").textbox("setValue",hex_md5(psw.value));
+					psw.value=hex_md5(psw.value);
+					
 					
 					form.submit();
 				}else{
@@ -191,7 +191,7 @@
 									</label>
 									<div class="inputOuter" id="pArea">
 										<input type="password" id="p" name="user.password"
-											class="easyui-textbox" data-options="iconCls:'icon-lock'" style="width:200px;height:38px;"  />
+											class="inputstyle2" data-options="iconCls:'icon-lock'" style="width:200px;height:38px;"  />
 									</div>
 								</div>
 

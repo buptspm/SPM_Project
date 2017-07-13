@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.buptsse.spm.domain.Exam;
 import com.buptsse.spm.service.IExamService;
-
+import com.buptsse.spm.util.FishingCheckUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -100,7 +100,7 @@ public class ExamAction extends ActionSupport{
 			Exam exam = (Exam) examList.get(0);
 			examName =exam.getExamName();
 		}
-		 
+		examName = FishingCheckUtil.checkChar(examName);
 		return "success";
 	}
 
@@ -119,8 +119,11 @@ public class ExamAction extends ActionSupport{
 				rightNumber++;
 			}
 		}
-		score = rightNumber*10;
-				
+		examName = FishingCheckUtil.checkChar(examName);
+		for(int i = 0; i < result.length; i++){
+			result[i] = FishingCheckUtil.checkChar(result[i]);
+		}
+		score = rightNumber*10;	
 		return "success";
 	}	
 	

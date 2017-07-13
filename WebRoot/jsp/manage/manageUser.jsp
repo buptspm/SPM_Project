@@ -98,6 +98,7 @@
   
   
  <body>
+ 	<c:if test="${session.user.position=='1' }">
 	<h1 style="font-size: 28px;color: #00a1f1;border-bottom: 1px solid #b6d9e8;line-height: 50px;word-break:break-all;">
 	    人员管理
    </h1>  
@@ -202,6 +203,9 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
     </div>	 
   
-  
+  </c:if>
+  <c:if test="${session.user.position!='1' }">
+  	你没有权限访问该页面！
+  </c:if>
   </body>
 </html>
